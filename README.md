@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #  Как работать с репозиторием финального задания
 
 ## Что нужно сделать
@@ -84,3 +85,7 @@ server {
 # Авторы
 - команда Яндекс Практикума [yandex-praktikum] (https://github.com/yandex-praktikum)
 - Галия Байбулова [kiwinwin] (https://github.com/kiwinwin)
+=======
+# Kittygram_v2.0
+Kittygram project with default and additional functions functions.
+>>>>>>> e40aecfc4b20ad827c792815014ed408895a4405
