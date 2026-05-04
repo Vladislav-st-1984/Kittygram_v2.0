@@ -1,0 +1,10 @@
+# Force Unix LF line endings for shell scripts and Dockerfiles regardless
+# of host OS / git autocrlf settings, so they can be executed inside Linux
+# containers built from Windows hosts.
+*.sh        text eol=lf
+Dockerfile  text eol=lf
+*.dockerfile text eol=lf
+entrypoint.sh text eol=lf
+
+# Default: let git decide based on contents.
+*           text=auto

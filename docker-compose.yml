@@ -1,0 +1,49 @@
+version: '3.8'
+
+volumes:
+  pg_data:
+  static:
+  media:
+
+services:
+  db:
+    image: postgres:16-alpine
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build: ./backend/
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - media:/media/
+      - static:/backend_static/
+    expose:
+      - "9000"
+
+  frontend:
+    build: ./frontend/
+    env_file: .env
+    command: cp -r /app/build/. /static/
+    volumes:
+      - static:/static/
+
+  gateway:
+    build: ./nginx/
+    env_file: .env
+    depends_on:
+      - backend
+      - frontend
+    ports:
+      - "9000:80"
+    volumes:
+      - static:/static/
+      - media:/media/
